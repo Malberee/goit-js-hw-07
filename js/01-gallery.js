@@ -36,18 +36,21 @@ function onGalleryClick(e) {
     `<img src="${e.target.dataset.source}" width="800" height="600">`,
     {
       onShow: (instance) => {
-        window.addEventListener('keydown', (e) => {
-          if (e.key !== 'Escape') {
-            return;
-          }
-          instance.close();
-        });
+        window.addEventListener('keydown', onImageOpen);
       },
       onClose: (instance) => {
-        window.removeEventListener('keydown', e);
-      },
+        window.removeEventListener('keydown', onImageOpen);
+      }
     }
   );
 
   instance.show();
+
+  function onImageOpen(e) {
+    if (e.key !== 'Escape') {
+      return;
+    }
+    instance.close();
+  }
 }
+
